@@ -15,22 +15,33 @@
     .wrong {
       color:red;
     }
+
+    textarea {
+        width: 100%;
+        resize: both;
+    }
+
   </style>
 
 <body>
 
 <p>1. Enter your text here</p>
-<!-- <textarea id="text-area" rows="4" cols="50"> -->
+
 <textarea id="text-area" rows="4">
 Five minutes a day. See the results quickly.
 </textarea>
+
 <br>
 <br>
+
 <button onclick="maskArticles()">2. Mask articles</button>
+
 <br>
 <br>
+
 <div id="no-articles"></div>
 <br>
+
 <button onclick="verifyArticles()">3. Verify articles</button>
 <div id="verify"></div>
 
