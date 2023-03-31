@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    .neutral {
+      color:black;
+    }
+    .correct {
+      color:green;
+    }
+    .wrong {
+      color:red;
+    }
+  </style>
+
+<body>
+
+<p>1. Enter your text here</p>
+<textarea id="text-area" name="w3review" rows="4" cols="50">
+You will learn how to make a website. They offer tutorials in the web technologies.
+</textarea>
+<br>
+<br>
+<button onclick="maskArticles()">2. Mask articles</button>
+<br>
+<br>
+<div id="no-articles"></div>
+<br>
+<button onclick="verifyArticles()">3. Verify articles</button>
+<div id="verify"></div>
+
+<script>
+
+  var gCount = 0;
+  var gOption = [];
+  const ALL_OPTIONS = ['___', 'a', 'an', 'the'];
+    
+  function getOptionsHTML(options, idx){
+    // returns options in HTML format
+    arr_out = [];
+    arr_out.push('<select name="choices" id="choices_' + idx + '">');
+    for (var j=0; j < options.length; j++){
+      const option = options[j];
+      const optString = '<option value="' + option + '">' + option + '</option>';
+      arr_out.push(optString);
+    }
+    arr_out.push('</select>');
+    return arr_out.join('\n');
+  }
+
+  function removeOptions(text, options) {
+    // replace the options in the text with HTML
+    const words = text.split(" ");
+    var out_words = [];
+    for (var i=0; i < words.length; i++) {
+      word = words[i];
+      var did_replace = false;
+      for (var j=0; j < options.length; j++){
+        const option = options[j];
+        if (word.toLowerCase() == option){
+          out_words.push(getOptionsHTML(options, gCount));
+          gOption.push(word);
+          did_replace = true;
+          gCount += 1;
+          break;
+        }
+      }
+      if (!did_replace) {
+        out_words.push(word);
+      }
+    }
+
+    return out_words.join(" ");
+  }
+
+  function maskArticles() {
+    gCount = 0;
+    gOption = [];
+    const textArea = document.getElementById("text-area");
+    const text = textArea.value;
+    newTextElt = document.getElementById("no-articles");
+    newTextElt.innerHTML = removeOptions(text, ALL_OPTIONS);
+    textArea.innerText = '';
+  }
+
+  function verifyArticles(){
+    for (var i=0; i<gCount; i++){
+      const doc = document.getElementById('choices_' + i);
+      const value = doc.value;
+      if (value.toLowerCase() == gOption[i].toLowerCase()){
+        doc.outerHTML = "<span class='correct'>_" + gOption[i] + "_</span>";
+      } else if (value == ALL_OPTIONS[0]) {
+        doc.outerHTML = "<span class='neutral'>" + value + "</span>";
+      } else {
+        doc.outerHTML = "<span class='wrong'>_" + gOption[i] + "_</span>";
+      }
+    }
+  }
+</script>
+  
+</body>
+</html>
