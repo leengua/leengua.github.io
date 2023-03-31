@@ -15,8 +15,8 @@
 <body>
 
 <p>1. Enter your text here</p>
-<textarea id="text-area" name="w3review" rows="4" cols="50">
-You will learn how to make a website. They offer tutorials in the web technologies.
+<textarea id="text-area" rows="4" cols="50">
+Five minutes a day. See the results quickly.
 </textarea>
 <br>
 <br>
@@ -72,6 +72,11 @@ You will learn how to make a website. They offer tutorials in the web technologi
     return out_words.join(" ");
   }
 
+  function clearTextArea(){
+    const textArea = document.getElementById("text-area");
+    textArea.outerHTML = ( '<textarea id="text-area" rows="4" cols="50">' + '' + '</textarea>' );
+  }
+
   function maskArticles() {
     gCount = 0;
     gOption = [];
@@ -79,7 +84,7 @@ You will learn how to make a website. They offer tutorials in the web technologi
     const text = textArea.value;
     newTextElt = document.getElementById("no-articles");
     newTextElt.innerHTML = removeOptions(text, ALL_OPTIONS);
-    textArea.innerText = '';
+    clearTextArea();
   }
 
   function verifyArticles(){
@@ -94,6 +99,7 @@ You will learn how to make a website. They offer tutorials in the web technologi
         doc.outerHTML = "<span class='wrong'>_" + gOption[i] + "_</span>";
       }
     }
+    clearTextArea();
   }
 </script>
   
